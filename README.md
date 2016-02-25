@@ -16,8 +16,6 @@ Features
     speed, will be used if available).
   * `<leader>d` to change the current directory
   * [`:VimShell`](https://github.com/Shougo/vimshell.vim) to open a shell written in vimscript.
-    It is not the best shell ever but is good enough to run tests quickly
-    + You will probably need to change the default vim command from `mvim` to what you want (`gvim` or `vim`)
   * `<leader>p` to paste a segment from yank history
   * `<leader>g` to open a list of Fugitive menu items (editable in vimrc)
   * `<leader>j` to open a list of other menu items (editable in vimrc)
