@@ -218,6 +218,18 @@ NeoBundle "scrooloose/nerdtree"
 " Insert/Delete brackets in pairs
 NeoBundle "jiangmiao/auto-pairs"
 
+NeoBundle "Valloric/MatchTagAlways"
+  let g:mta_filetypes = {
+      \ 'html' : 1,
+      \ 'xhtml' : 1,
+      \ 'xml' : 1,
+      \ 'jinja' : 1,
+      \ 'php' : 1,
+      \}
+
+NeoBundle "Yggdroot/indentLine"
+  let g:indentLine_enabled = 1
+
 call neobundle#end()
 
 syntax enable
@@ -251,6 +263,9 @@ set expandtab
 
 " dumb indent
 set autoindent
+
+set visualbell
+set lazyredraw
 
 " ##AutoCmd essentials {{{
 if has("autocmd")
@@ -300,6 +315,9 @@ if has('persistent_undo')         " persistend undo history
 endif
 "}}}
 
+" Automatically removing all trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
 nmap <leader>l :set list!<CR>
 set listchars=eol:¬
 
@@ -328,6 +346,12 @@ nnoremap <C-@> :Unite -start-insert files_ag<CR>
 
 inoremap <leader>, <C-x><C-o>
 
+nnoremap \s :%s/\<<c-r>=expand("<cword>")<cr>\>/
+nnoremap \g :silent grep <c-r>=expand("<cword>")<cr> **/*<cr> :cw<cr><c-l>
+
+" format the entire file
+nnoremap \f mngg=G`n`
+
 " Automatically reload vimrc when it's saved "{{{
 augroup VimrcSo
   au!
@@ -346,4 +370,5 @@ try
   set background=dark
 catch
   " we don't have this theme or it throws
+set lazyredraw
 endtry
