@@ -91,6 +91,7 @@ NeoBundle 'terryma/vim-expand-region'
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 
 " Different stuff in the menu (depends on Unite.vim) {{{
 
@@ -129,7 +130,7 @@ let g:unite_source_menu_menus.git.command_candidates = [
     \['▷ git cd           (Fugitive)',
         \'Gcd'],
     \]
-" }}}
+"}}}
 
 " Different stuff in the menu (depends on Unite.vim) {{{
 let g:unite_source_menu_menus.all = {}
@@ -150,7 +151,7 @@ let g:unite_source_menu_menus.all.command_candidates = [
     \['▷ clean bundles (NeoBundleClean)', 'NeoBundleClean'],
     \['▷ update bundles (NeoBundleUpdate)', 'NeoBundleUpdate'],
     \]
-" }}}
+"}}}
 
 " Surrond plugin! Surrond text with a pair of anything (s in normal) "{{{
 NeoBundle 'tpope/vim-surround'
@@ -213,6 +214,8 @@ NeoBundle "Slava/vim-colors-tomorrow"
 
 NeoBundle "scrooloose/nerdtree"
   map <C-y> :NERDTreeToggle<CR>
+  autocmd StdinReadPre * let s:std_in = 1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
   "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
 
 " Insert/Delete brackets in pairs
@@ -273,6 +276,7 @@ if has("autocmd")
   filetype on
   filetype plugin indent on
   autocmd FileType php setlocal ts=4 sts=4 sw=4
+  autocmd FileType python setlocal ts=4 sts=4 sw=4
 endif
 "}}}
 
@@ -370,5 +374,4 @@ try
   set background=dark
 catch
   " we don't have this theme or it throws
-set lazyredraw
 endtry
