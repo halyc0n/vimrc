@@ -50,10 +50,15 @@ Weird bindings you might want to change
 - `<leader>g` to open a list of Fugitive menu items
 - `<leader>j` to open a list of other menu items
 - `<leader>b` to start insert buffer
+- `<leader>m` toggle between two previous buffers
 - `<C-space>` to start insert files
 
 - quick `jk` in insert mode is mapped to `ESC` to avoid pressing `ESC`
 - `<C-y>` :NERDTreeToggle
+- `\s` search and replace word under cursor
+- `\g` search word under cursor in files
+- `\a` using ag with arguments (:Ag -i word my/dir)
+- `\f` format the entire file
 
 Dependencies
 ---
@@ -113,7 +118,7 @@ After you can run the bash script from this repo which will take care of
 everything but will do something terrible if you already have any of `.vim` or
 `.vimrc`. But it works great on a clean set up:
 
-    $ curl https://raw.github.com/halyc0n/vimrc/master/install-script.sh > install-script.sh
+    $ curl https://raw.github.com/halyc0n/vimrc/master/install-script.sh > ~/install-script.sh
     $ bash ./install-script.sh
 
 Manual installation

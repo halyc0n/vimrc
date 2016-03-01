@@ -34,6 +34,7 @@ if executable("ag")
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
   let g:unite_source_grep_recursive_opt = ''
+  set grepprg=ag\ --nogroup\ --nocolor
 endif
 
 " Search settings
@@ -216,7 +217,7 @@ NeoBundle "scrooloose/nerdtree"
   map <C-y> :NERDTreeToggle<CR>
   autocmd StdinReadPre * let s:std_in = 1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-  "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q |
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Insert/Delete brackets in pairs
 NeoBundle "jiangmiao/auto-pairs"
@@ -340,20 +341,31 @@ nnoremap <leader>g :Unite -silent -start-insert menu:git<CR>
 nnoremap <leader>j :Unite -silent -start-insert menu:all menu:git<CR>
 " Select across all buffers
 nnoremap <leader>b :Unite -start-insert buffer<CR>
-" }}}
+"}}}
 
 " #Other mappings {{{
 " Quickly open files or buffers
 nnoremap <C-n> :Unite -start-insert file -profile-name=files<CR>
 nnoremap <C-@> :Unite -start-insert files_ag<CR>
+
+" Toggle between two previous buffers
+nmap <leader>m <leader>b<CR>
 "}}}
 
 inoremap <leader>, <C-x><C-o>
 
+" Search and replace word under cursor
 nnoremap \s :%s/\<<c-r>=expand("<cword>")<cr>\>/
-nnoremap \g :silent grep <c-r>=expand("<cword>")<cr> **/*<cr> :cw<cr><c-l>
 
-" format the entire file
+" Search word under cursor in files
+nnoremap \g :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Using ag arguments
+" :Ag -i word my/dir
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \a :Ag<SPACE>
+
+" Format the entire file
 nnoremap \f mngg=G`n`
 
 " Automatically reload vimrc when it's saved "{{{
@@ -368,6 +380,8 @@ set shell=/bin/bash
 
 " For the VimR search rules
 set wildignore=*.so,*.a,*.pyc,.build.*,.git"
+
+"set pastetoggle=<c-z>
 
 try
   colorscheme tomorrow
