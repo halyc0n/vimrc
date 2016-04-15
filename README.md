@@ -37,8 +37,6 @@ Weird visual things you might want to change
 - [vim-airline](https://github.com/bling/vim-airline) - status bar
 - [Tomorrow Night Theme](https://github.com/Slava/vim-tomorrow-js) -
   specifically, a fork extended for JS
-- [vim-signature](https://github.com/kshenoy/vim-signature) - to visually see marks
-
 
 Weird bindings you might want to change
 
@@ -118,15 +116,15 @@ After you can run the bash script from this repo which will take care of
 everything but will do something terrible if you already have any of `.vim` or
 `.vimrc`. But it works great on a clean set up:
 
-    $ curl https://raw.github.com/halyc0n/vimrc/master/install-script.sh > ~/install-script.sh
-    $ bash ./install-script.sh
+    $ wget -O ~/install-script.sh https://raw.github.com/halyc0n/vimrc/master/install-script.sh
+    $ bash ~/install-script.sh
 
 Manual installation
 ---
 
 Download `.vimrc` file.
 
-    $ curl https://raw.github.com/halyc0n/vimrc/master/.vimrc > ~/.vimrc
+    $ wget -O ~/.vimrc https://raw.github.com/halyc0n/vimrc/master/.vimrc
 
 Install `neobundle`
 

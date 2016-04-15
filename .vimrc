@@ -166,6 +166,10 @@ NeoBundle "mattn/emmet-vim"
 NeoBundle "elzr/vim-json"
 NeoBundle "tpope/vim-markdown"
 NeoBundle "pangloss/vim-javascript"
+
+"NeoBundle "mxw/vim-jsx"
+  "let g:jsx_ext_required = 0
+
 NeoBundle "StanAngeloff/php.vim"
 NeoBundle "shawncplus/phpcomplete.vim"
 
@@ -180,6 +184,8 @@ NeoBundle "scrooloose/syntastic"
   let g:syntastic_php_phpcs_exec="~/.composer/vendor/bin/phpcs"
   let g:syntastic_php_phpcs_args="--standard=PSR2 -n"
 
+  let g:syntastic_javascript_checkers=["eslint"]
+
 NeoBundle "scrooloose/nerdcommenter"
 
 " OMG OMG, shell in my VIM {{{
@@ -190,7 +196,7 @@ NeoBundle "Shougo/vimshell"
 
 NeoBundle "paranoida/vim-airlineish"
 NeoBundle "vim-airline/vim-airline"
-  let g:airline_theme="airlineish"
+  let g:airline_theme="gruvbox"
   set laststatus=2
   set encoding=utf-8
   if has("gui_running")
@@ -214,11 +220,8 @@ NeoBundle "vim-airline/vim-airline"
   endfunction
   autocmd VimEnter * call AirlineOverride()
 
-NeoBundle "Slava/vim-colors-tomorrow"
-  set t_Co=256
-  let g:tomorrow_termcolors = 256
-  "let g:tomorrow_termtrans = 0 " set to 1 if using transparant background
-  let g:tomorrow_diffmode = "high"
+NeoBundle "morhetz/gruvbox"
+  let g:gruvbox_contrast_dark = "medium"
 
 NeoBundle "scrooloose/nerdtree"
   map <C-y> :NERDTreeToggle<CR>
@@ -415,7 +418,7 @@ inoremap <F11> :call ToggleFullScreen()<CR>
 
 try
   set background=dark
-  colorscheme tomorrow
+  colorscheme gruvbox
 catch
   " we don't have this theme or it throws
 endtry
