@@ -10,5 +10,8 @@ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 # Install all bundles
 vim -c "NeoBundleInstall" -c "q"
 
+# Install all necessary Go binaries
+vim -c "GoInstallBinaries" -c "q"
+
 # Go home
 cd ~

@@ -37,7 +37,7 @@ if executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" Search settings
+" Search settings {{{
 if exists("*unite")
   call unite#filters#matcher_default#use(["matcher_fuzzy"])
   call unite#filters#sorter_default#use(["sorter_rank"])
@@ -79,11 +79,19 @@ NeoBundle "Shougo/neocomplete.vim"
   " Close popup by <Space>.
   inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
+  " AutoComplPop like behavior.
+  let g:neocomplete#enable_auto_select = 1
+
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType php setlocal omnifunc=phpcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.go = '[^.[:digit:] *\t]\.'
 "}}}
 
 " Expand/shrink the visual selection by text-object blocks with `+` and `_` in
@@ -96,7 +104,7 @@ NeoBundle "airblade/vim-gitgutter"
 " Different stuff in the menu (depends on Unite.vim) {{{
 
 if !exists("g:unite_source_menu_menus")
-    let g:unite_source_menu_menus = {}
+  let g:unite_source_menu_menus = {}
 endif
 
 " Fugitive menu in Unite (depends on both Fugitive and Unite.vim) {{{
@@ -153,11 +161,11 @@ let g:unite_source_menu_menus.all.command_candidates = [
     \]
 "}}}
 
-" Surrond plugin! Surrond text with a pair of anything (s in normal) "{{{
+" Surrond plugin! Surrond text with a pair of anything (s in normal) {{{
 NeoBundle "tpope/vim-surround"
 "}}}
 
-" Vim JS autocompletion with type hints "{{{
+" Vim JS autocompletion with type hints {{{
 NeoBundle "ternjs/tern_for_vim"
   let g:tern_show_argument_hints = "on_move"
 "}}}
@@ -168,10 +176,19 @@ NeoBundle "tpope/vim-markdown"
 NeoBundle "pangloss/vim-javascript"
 
 "NeoBundle "mxw/vim-jsx"
-  "let g:jsx_ext_required = 0
 
 NeoBundle "StanAngeloff/php.vim"
 NeoBundle "shawncplus/phpcomplete.vim"
+
+" Go {{{
+NeoBundle "fatih/vim-go"
+  " By default syntax-highlighting for Functions, Methods and Structs is
+  " disabled.
+  " Let's enable them!
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+"}}}
 
 NeoBundle "scrooloose/syntastic"
   set statusline+=%#warningmsg#
@@ -188,7 +205,7 @@ NeoBundle "scrooloose/syntastic"
 
 NeoBundle "scrooloose/nerdcommenter"
 
-" OMG OMG, shell in my VIM {{{
+" Shell in my VIM {{{
 NeoBundle "Shougo/vimshell"
   let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
   let g:vimshell_prompt =  "$ "
@@ -196,7 +213,7 @@ NeoBundle "Shougo/vimshell"
 
 NeoBundle "paranoida/vim-airlineish"
 NeoBundle "vim-airline/vim-airline"
-  let g:airline_theme="gruvbox"
+  let g:airline_theme="tomorrow"
   set laststatus=2
   set encoding=utf-8
   if has("gui_running")
@@ -220,16 +237,17 @@ NeoBundle "vim-airline/vim-airline"
   endfunction
   autocmd VimEnter * call AirlineOverride()
 
-NeoBundle "morhetz/gruvbox"
-  let g:gruvbox_contrast_dark = "medium"
+" Colorscheme {{{
+ NeoBundle "w0ng/vim-hybrid"
+"}}}
 
 NeoBundle "scrooloose/nerdtree"
-  map <C-y> :NERDTreeToggle<CR>
   let g:NERDTreeDirArrowExpandable = "+"
   let g:NERDTreeDirArrowCollapsible = "~"
   autocmd StdinReadPre * let s:std_in = 1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  "nmap <C-t> :NERDTreeToggle<CR>
 
 " Insert/Delete brackets in pairs
 NeoBundle "jiangmiao/auto-pairs"
@@ -265,7 +283,7 @@ set cursorline
 " Leader key is comma
 let mapleader = ","
 
-" ##Search tweaks {{{
+" Search tweaks {{{
 set hlsearch
 set incsearch
 " Kill current search
@@ -291,13 +309,15 @@ set guioptions-=T "remove toolbar
 set guioptions-=r "remove right-hand scroll bar
 set guioptions-=L "remove left-hand scroll bar
 
-" ##AutoCmd essentials {{{
+" AutoCmd essentials {{{
 if has("autocmd")
   " Enable file type detection
   filetype on
   filetype plugin indent on
   autocmd FileType php setlocal ts=4 sts=4 sw=4
   autocmd FileType python setlocal ts=4 sts=4 sw=4
+  autocmd FileType cs setlocal ts=4 sts=4 sw=4
+  autocmd FileType go setlocal ts=4 sts=4 sw=4
 endif
 "}}}
 
@@ -306,7 +326,7 @@ set wildmenu
 set wildmode=longest:full,full
 
 " Indentation tweaks:
-" " reselect visual block after indent/outdent
+" reselect visual block after indent/outdent
 vnoremap < <gv
 vnoremap > >gv
 
@@ -320,16 +340,9 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Wrapping tweaks "{{{
-" set wrap
-" set linebreak
-" set textwidth=80
-" set formatoptions=cq " format using textwidth, including comments and gq
-"}}}
-
 set nowrap
 
-" Save undo history persistently on disk, takes extra space "{{{
+" Save undo history persistently on disk, takes extra space {{{
 if has("persistent_undo")         " persistend undo history
   " create the directory if it doesn't exist
   silent !mkdir ~/.vim/undo > /dev/null 2>&1
@@ -363,13 +376,15 @@ nnoremap <leader>j :Unite -silent -start-insert menu:all menu:git<CR>
 nnoremap <leader>b :Unite -start-insert buffer<CR>
 "}}}
 
-" #Other mappings {{{
+" Other mappings {{{
 " Quickly open files or buffers
 nnoremap <C-n> :Unite -start-insert file -profile-name=files<CR>
-nnoremap <C-space> :Unite -start-insert files_ag<CR>
+nnoremap <C-@> :Unite -start-insert files_ag<CR>
 
 " Toggle between two previous buffers
 nmap <leader>m <leader>b<CR>
+
+nmap <leader>o :NERDTreeToggle<cr>
 "}}}
 
 inoremap <leader>, <C-x><C-o>
@@ -388,7 +403,7 @@ nnoremap \a :Ag<SPACE>
 " Format the entire file
 nnoremap \f mngg=G`n`
 
-" Automatically reload vimrc when it's saved "{{{
+" Automatically reload vimrc when it's saved {{{
 augroup VimrcSo
   au!
   autocmd BufWritePost $MYVIMRC so $MYVIMRC
@@ -400,8 +415,6 @@ set shell=/bin/bash
 
 " For the VimR search rules
 set wildignore=*.so,*.a,*.pyc,.build.*,.git"
-
-"set pastetoggle=<c-z>
 
 function! ToggleFullScreen()
   if &go =~ "e"
@@ -417,8 +430,8 @@ nnoremap <F11> :call ToggleFullScreen()<CR>
 inoremap <F11> :call ToggleFullScreen()<CR>
 
 try
+  colorscheme hybrid
   set background=dark
-  colorscheme gruvbox
 catch
   " we don't have this theme or it throws
 endtry

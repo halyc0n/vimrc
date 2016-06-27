@@ -9,6 +9,7 @@ Features
   * [JavaScript](https://github.com/pangloss/vim-javascript)
   * [JSON](https://github.com/elzr/vim-json)
   * [Markdown](https://github.com/tpope/vim-markdown)
+- [vim-go](https://github.com/fatih/vim-go) - Go support for Vim
 - [Unite.vim](https://github.com/Shougo/unite.vim) with awesome fuzzy search features
   * `<C-n>` to open a file in the current directory
   * `<leader><C-n>` to open a file in some subdirectory recursively using an
@@ -35,8 +36,7 @@ Features
 Weird visual things you might want to change
 
 - [vim-airline](https://github.com/bling/vim-airline) - status bar
-- [Tomorrow Night Theme](https://github.com/Slava/vim-tomorrow-js) -
-  specifically, a fork extended for JS
+- [Hybrid Theme](https://github.com/w0ng/vim-hybrid)
 
 Weird bindings you might want to change
 
@@ -52,7 +52,7 @@ Weird bindings you might want to change
 - `<C-space>` to start insert files
 
 - quick `jk` in insert mode is mapped to `ESC` to avoid pressing `ESC`
-- `<C-y>` :NERDTreeToggle
+- `<leader>o` :NERDTreeToggle
 - `\s` search and replace word under cursor
 - `\g` search word under cursor in files
 - `\a` using ag with arguments (:Ag -i word my/dir)
@@ -143,6 +143,12 @@ Update PHP syntax highlight
 Install PHP Code Sniffer
 
     $ composer global require "squizlabs/php_codesniffer"
+
+Install all necessary binares for Go
+
+    $ vim -c "GoInstallBinares" -c "q"
+
+Add $GOPATH/bin to your $PATH
 
 Finish installation by installing `tern_for_vim`:
 
