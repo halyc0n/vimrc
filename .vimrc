@@ -211,8 +211,8 @@ NeoBundle "Shougo/vimshell"
   let g:vimshell_prompt =  "$ "
 "}}}
 
-NeoBundle "paranoida/vim-airlineish"
 NeoBundle "vim-airline/vim-airline"
+NeoBundle "vim-airline/vim-airline-themes"
   let g:airline_theme="tomorrow"
   set laststatus=2
   set encoding=utf-8
@@ -238,7 +238,11 @@ NeoBundle "vim-airline/vim-airline"
   autocmd VimEnter * call AirlineOverride()
 
 " Colorscheme {{{
- NeoBundle "w0ng/vim-hybrid"
+NeoBundle "Slava/vim-colors-tomorrow"
+set t_Co=256
+let g:tomorrow_termcolors = 256
+let g:tomorrow_termtrans = 0 " set to 1 if using transparant background
+let g:tomorrow_diffmode = "high"
 "}}}
 
 NeoBundle "scrooloose/nerdtree"
@@ -430,7 +434,7 @@ nnoremap <F11> :call ToggleFullScreen()<CR>
 inoremap <F11> :call ToggleFullScreen()<CR>
 
 try
-  colorscheme hybrid
+  colorscheme tomorrow
   set background=dark
 catch
   " we don't have this theme or it throws
